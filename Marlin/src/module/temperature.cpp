@@ -55,6 +55,14 @@
   #include "../feature/leds/printer_event_leds.h"
 #endif
 
+#if !defined(EXTRUDER_AUTO_FAN_ON_SPEED)
+#define EXTRUDER_AUTO_FAN_ON_SPEED      EXTRUDER_AUTO_FAN_SPEED
+#endif
+
+#if !defined(EXTRUDER_AUTO_FAN_OFF_SPEED)
+#define EXTRUDER_AUTO_FAN_OFF_SPEED     0
+#endif
+
 #if HOTEND_USES_THERMISTOR
   #if ENABLED(TEMP_SENSOR_1_AS_REDUNDANT)
     static void* heater_ttbl_map[2] = { (void*)HEATER_0_TEMPTABLE, (void*)HEATER_1_TEMPTABLE };
@@ -542,7 +550,7 @@ int Temperature::getHeaterPower(const int heater) {
       ;
       const uint8_t bit = pgm_read_byte(&fanBit[f]);
       if (pin >= 0 && !TEST(fanDone, bit)) {
-        uint8_t newFanSpeed = TEST(fanState, bit) ? EXTRUDER_AUTO_FAN_SPEED : 0;
+        uint8_t newFanSpeed = TEST(fanState, bit) ? EXTRUDER_AUTO_FAN_ON_SPEED : EXTRUDER_AUTO_FAN_OFF_SPEED;
         #if ENABLED(AUTO_POWER_E_FANS)
           autofan_speed[f] = newFanSpeed;
         #endif
