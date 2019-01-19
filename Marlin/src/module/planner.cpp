@@ -1263,7 +1263,7 @@ void Planner::check_axes_activity() {
     #else
       #define _CALC_FAN_SPEED(f) tail_fan_speed[f]
     #endif
-    #if FAN0_PIN_INVERTED
+    #if FAN_PIN_INVERTED
         #define CALC_FAN0_SPEED()   (255-_CALC_FAN_SPEED(0))
     #else
         #define CALC_FAN0_SPEED()   _CALC_FAN_SPEED(0)
