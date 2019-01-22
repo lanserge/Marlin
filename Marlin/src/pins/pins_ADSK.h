@@ -16,7 +16,7 @@
  The next LCD pins RS,D4,D5,D6,D7 have internal pull-ups to 5V and as result the 5V will be on these pins.
  Luckily these internal pull-ups have really high resistance and adding 33K pull-down resistors will create
  simple voltage divider that will bring the voltage down just slightly bellow 3.3V.
- 
+
  This LCD also has buttons that connected to the same ADC pin with different voltage divider combinations.
  On the LCD panel there is internal pull-up resistor of the 4.7K connected to 5V.
  Connecting another 4.7K pull-down resistor between ADC pin and the GND
@@ -24,15 +24,16 @@
  
  For 2004 LCD to work with 3.3V board like Arduino DUE the next required:
  Pull-down resistors of 33K between each of LCD pins RS,D4,D5,D6,D7 and the GND.
+ For ADC buttons to work:
  Pull-down resistor of 4.7K between ADC_KEYPAD_PIN and the GND
  
  All these modifications will still work with 5V based boards but require proper scaled ADC values
  */
 
 #if defined(__SAM3X8E__)
-    #define AREF_VOLTS      3.3
+    #define ADC_BUTTONS_AREF_VOLTS      3.3
 #else
-    #define AREF_VOLTS      5.0
+    #define ADC_BUTTONS_AREF_VOLTS      5.0
 #endif
 
 #define LCD_PINS_ENABLE     14
@@ -45,17 +46,17 @@
 
 /* 
  The below defines will scale all the values to work properly on both 5V (Mega) and 3.3V (DUE) boards
- with all pull-up resistors added for 3.3V
+ with all pull-down resistors added for 3.3V
 */
 
-#define ADC_BUTTONS_VALUE_SCALE         (5.0/AREF_VOLTS) // The LCD module pullup voltage is 5.0V but ADC reference voltage is 3.3V
+#define ADC_BUTTONS_VALUE_SCALE         (5.0/ADC_BUTTONS_AREF_VOLTS) // The voltage scaled
 
 #define ADC_BUTTONS_R_PULLDOWN          4.7  // Moves voltage down to be bellow 3.3V instead of 5V
 // the resistors values will be scaled because of 4.7K pulldown parallel resistor 
 #define _ADC_BUTTONS_R_SCALED(r)        ((r)*ADC_BUTTONS_R_PULLDOWN/((r)+ADC_BUTTONS_R_PULLDOWN))
 
 // buttons pullup resistor
-#define ADC_BUTTONS_R_PULLUP            4.7 // the resistor on the 2004 LCD panel
+#define ADC_BUTTONS_R_PULLUP            4.7 // the resistor on the panel
 // buttons resistors with scaled values because of parallel pulldown resistor
 #define ADC_BUTTONS_LEFT_R_PULLDOWN     _ADC_BUTTONS_R_SCALED(0.47)
 #define ADC_BUTTONS_RIGHT_R_PULLDOWN    _ADC_BUTTONS_R_SCALED(4.7)
