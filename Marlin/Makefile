@@ -206,6 +206,8 @@ else ifeq ($(HARDWARE_MOTHERBOARD),72)
 else ifeq ($(HARDWARE_MOTHERBOARD),80)
 # Raise3D Rumba
 else ifeq ($(HARDWARE_MOTHERBOARD),333)
+# Rapide Lite RL200 Rumba
+else ifeq ($(HARDWARE_MOTHERBOARD),801)
 # Formbot T-Rex 2 Plus
 else ifeq ($(HARDWARE_MOTHERBOARD),95)
 # Formbot T-Rex 3
@@ -228,6 +230,10 @@ else ifeq ($(HARDWARE_MOTHERBOARD),243)
 else ifeq ($(HARDWARE_MOTHERBOARD),244)
 # Fysetc F6
 else ifeq ($(HARDWARE_MOTHERBOARD),541)
+# Duplicator i3 Plus
+else ifeq ($(HARDWARE_MOTHERBOARD),31)
+# VORON
+else ifeq ($(HARDWARE_MOTHERBOARD),441)
 
 #
 # Other ATmega1280, ATmega2560
