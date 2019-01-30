@@ -1972,10 +1972,10 @@ void Temperature::readings_ready() {
     #else
       #define BEDCMP(A,B) ((A)>=(B))
     #endif
-    const bool bed_on = (target_temperature_bed > 0)
-      #if ENABLED(PIDTEMPBED)
-        || (soft_pwm_amount_bed > 0)
-      #endif
+    const bool bed_on = (target_temperature_bed >= BED_MINTEMP)
+//      #if ENABLED(PIDTEMPBED)
+//        || (soft_pwm_amount_bed > 0)
+//      #endif
     ;
     if (BEDCMP(current_temperature_bed_raw, bed_maxttemp_raw)) max_temp_error(-1);
     if (BEDCMP(bed_minttemp_raw, current_temperature_bed_raw) && bed_on) min_temp_error(-1);

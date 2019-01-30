@@ -1861,8 +1861,8 @@ void MarlinSettings::postprocess() {
           ubl.report_state();
 
           if (!ubl.sanity_check()) {
-            SERIAL_EOL_P(port);
             #if ENABLED(EEPROM_CHITCHAT)
+              SERIAL_EOL_P(port);
               ubl.echo_name();
               CHITCHAT_ECHOLNPGM_P(port, " initialized.\n");
             #endif

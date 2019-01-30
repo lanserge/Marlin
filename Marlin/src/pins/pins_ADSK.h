@@ -87,9 +87,16 @@ A stepper for E0 extruder
 //
 #define X_MIN_PIN           9
 #define Y_MIN_PIN          10
-#define Z_MIN_PIN          11
 
-#define Z_MIN_PROBE_PIN    62   // Analog pin 8, Digital pin 62
+#if ENABLED(Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN)
+    // Z Probe will be Z_MIN
+    // the actual Z_MIN switch will indicate that the probe failed (probe should be higher and trigger first)
+    #define Z_MIN_PIN       62   // Analog pin 8, Digital pin 62
+    #define KILL_PIN        11
+#else
+    #define Z_MIN_PIN       11
+    #define Z_MIN_PROBE_PIN 62   // Analog pin 8, Digital pin 62
+#endif
 
 //
 // Steppers
