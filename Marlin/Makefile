@@ -196,6 +196,7 @@ else ifeq ($(HARDWARE_MOTHERBOARD),7)
 # Ultimaker (Older electronics. Pre 1.5.4. This is rare)
 else ifeq ($(HARDWARE_MOTHERBOARD),71)
   MCU ?= atmega1280
+
 # Azteeg X3
 else ifeq ($(HARDWARE_MOTHERBOARD),67)
 # Azteeg X3 Pro
@@ -275,10 +276,16 @@ else ifeq ($(HARDWARE_MOTHERBOARD),999)
 else ifeq ($(HARDWARE_MOTHERBOARD),310)
 # abee Scoovo X9H
 else ifeq ($(HARDWARE_MOTHERBOARD),321)
+# Geeetech GT2560 Rev B for Mecreator2
+else ifeq ($(HARDWARE_MOTHERBOARD),73)
 # Geeetech GT2560 Rev. A
 else ifeq ($(HARDWARE_MOTHERBOARD),74)
 # Geeetech GT2560 Rev. A+ (with auto level probe)
 else ifeq ($(HARDWARE_MOTHERBOARD),75)
+# Geeetech GT2560 Rev B for A10(M/D)
+else ifeq ($(HARDWARE_MOTHERBOARD),76)
+# Geeetech GT2560 Rev B for A20(M/D)
+else ifeq ($(HARDWARE_MOTHERBOARD),86)
 
 #
 # ATmega1281, ATmega2561
@@ -742,7 +749,7 @@ ifeq (${AVRDUDE_PROGRAMMER}, arduino)
 	stty -hup < $(UPLOAD_PORT); true
 endif
 
-  # Display size of file.
+# Display size of file.
 HEXSIZE = $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex
 ELFSIZE = $(SIZE)  $(SIZE_FLAGS) $(BUILD_DIR)/$(TARGET).elf; \
           $(SIZE)  $(BUILD_DIR)/$(TARGET).elf
@@ -792,7 +799,7 @@ extcoff: $(TARGET).elf
 .elf.sym:
 	$(NM) -n $< > $@
 
-  # Link: create ELF output file from library.
+# Link: create ELF output file from library.
 
 $(BUILD_DIR)/$(TARGET).elf: $(OBJ) Configuration.h
 	$(Pecho) "  CXX   $@"

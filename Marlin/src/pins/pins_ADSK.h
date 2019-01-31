@@ -104,7 +104,7 @@ A stepper for E0 extruder
 #define X_STEP_PIN          2
 #define X_DIR_PIN           5
 #define X_ENABLE_PIN        8
-    
+
 #define Y_STEP_PIN          3
 #define Y_DIR_PIN           6
 #define Y_ENABLE_PIN        8
