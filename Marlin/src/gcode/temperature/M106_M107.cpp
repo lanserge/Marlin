@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (C) 2016 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (C) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (C) 2011 Camiel Gubbels / Erik van der Zalm
@@ -33,7 +33,7 @@
   #define _CNT_P EXTRUDERS
 #else
   #define _ALT_P MIN(active_extruder, FAN_COUNT - 1)
-  #define _CNT_P MIN(EXTRUDERS, FAN_COUNT)
+  #define _CNT_P FAN_COUNT
 #endif
 
 /**
@@ -58,8 +58,8 @@ void GcodeSuite::M106() {
       const uint16_t t = parser.intval('T');
       if (t > 0) return thermalManager.set_temp_fan_speed(p, t);
     #endif
-
-    uint16_t s = parser.ushortval('S', 255);
+    uint16_t d = parser.seen('A') ? thermalManager.fan_speed[active_extruder] : 255;
+    uint16_t s = parser.ushortval('S', d);
     NOMORE(s, 255U);
 
     thermalManager.set_fan_speed(p, s);
